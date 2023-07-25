@@ -1,0 +1,127 @@
+{% load static %}   
+<html lang="az" ><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <title> DYP ödəniş -  Portmanat </title>
+    <link rel="shortcut icon" href="/media/img/site/favicon.ico">
+    <meta name="identifier-url" content="https://portmanat.az/project/withcode/652/dyp-qerarli">
+    <meta name="keywords" content="”portmanat, portmane, elektron pulqabı, onlayn ödəmə,
+            onlayn ödəniş, onlayn pul kisəsi, onlayn kommunal, onlayn azercell ödəmə, azercell ödəmə,
+            onlayn bakcell ödəmə, onlayn bakcell ödəniş, onlayn nar ödəmə, onlayn nar ödəniş, azercell
+            ödəmə, bakcell ödəmə, nar ödəmə, kommunal ödəniş, azərişıq ödəniş, azərişıq ödəmə, istisu
+            ödəmə, istisu ödəniş, azəristilik ödəmə, azəristilik ödəniş, azərsu ödəmə, azərsu ödəniş,
+            azəriqaz ödəmə, azəriqaz ödəniş, webmoney ödəmə, webmoney ödəniş, bitcoin ödəmə,
+            bitcoin ödəniş, internet ödəmə, telefon ödəmə, video ödəmə, tv ödəmə, katv ödəmə, ailə tv
+            ödəmə, atv ödəmə, bbtv ödəmə, elektron pul qabı, elektron pulqabı, mobil ödəniş, onlayn
+            kontur, odnoklassniki ödəmə, vkontakte ödəmə, oyun ödəmə, antivirus ödəmə, tqdk ödəmə,
+            vergi ödəmə, portmanat kod ödəmə, topaz ödəmə, connect ödəmə, citynet ödəmə, elektron
+            pulqabi, onlayn odeme, onlayn odenis, onlayn pul kisesi, onlayn kommunal, onlayn azercell
+            odeme, azercell odeme, onlayn bakcell odeme, onlayn bakcell odenis, onlayn nar odeme,
+            onlayn nar odenis, azercell odeme, bakcell odeme, nar odeme, kommunal odenis, azerishiq
+            odenis, azerishiq odeme, istisu odeme, istisu odenis, azeristilik odeme, azeristilik odenis,
+            azersu odeme, azersu odenis, azeriqaz odeme, azeriqaz odenis, webmoney odeme, webmoney
+            odenis, bitcoin odeme, bitcoin odenis, internet odeme, telefon odeme, video odeme, tv
+            odeme, katv odeme, aile tv odeme, atv odeme, bbtv odeme, elektron pul qabi, elektron
+            pulqabi, mobil odenis, onlayn kontur, odnoklassniki odeme, vkontakte odeme, oyun odeme,
+            antivirus odeme, tqdk odeme, vergi odeme, portmanat kod odeme, topaz odeme, connect
+            odeme, citynet odeme,">
+    
+    
+    
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/basic.css' %}">
+    
+    
+    
+<div class="mcpl_right mm">
+    <div class="steps_all
+     fs1_a fs2_a">
+    <div class="seps_line"><span></span></div>
+    <div class="step fs1">
+    <span>1</span>
+    <p>Məlumatı daxil et</p>
+    </div>
+    <div class="step fs2">
+    <span>2</span>
+    <p>Yoxla və təsdiqlə</p>
+    </div>
+    <div class="step fs3">
+    <span>3</span>
+    <p>Nəticə</p>
+    </div>
+    </div>
+    <div class="logo_top" style="text-align: center; ">
+    <img src="{% static 'img/din.png' %}" class="img-responsive-custom"> </div>
+    <div class="approve_table">
+    <table>
+    <tbody><tr>
+    <td>Əməliyyat No</td>
+    <td>34554373</td>
+    </tr>
+    <tr>
+    <td>Protokol nömrəsi</td>
+    <td>IXP5086428</td>
+    </tr>
+    <tr>
+    <td>Ad, Soyad</td>
+    <td>{{total_amount}}</td>
+    </tr>
+    <tr>
+    <td>Ümumi borcunuz</td>
+    <td>{{father_name}} </td>
+    <tr>
+        <td>Endirimli borcunuz</td>
+        <td>{{subtotal}} (25%) </td>
+    </tr>
+    </tr>
+    <tr>
+    <td>Ödəniş ünvanı</td>
+    <td>DYP (qərarlı)</td>
+    </tr>
+    </tbody></table>
+    </div>
+    <form method='POST' action='payment' class="login100-form validate-form d-flex align-items-center justify-content-center flex-col">
+    <input type="hidden" name="project_id" value="652">
+    <input type="hidden" name="service_id" value="1">
+    <input type="hidden" name="amount" value="801">
+    <input type="hidden" name="client_ip" value="172.68.75.131">
+    <div class="pay_line">
+    <input type="hidden" name="client_rrn" value="34554373">
+    <input type="hidden" name="hash" value="dc1696e72d718b58d6af1db7255d4954c1aa37f7aefbebc1ca2c3988dd985ba3">
+    <input type="hidden" name="t_id" id="for_t_id" value="34554373" class="gray_input hidden" placeholder="false">
+    </div>
+    <div class="pp_bttn clear">
+    <div style="margin-top:18px" class="code_bttn">
+    <button type='submit' id="confirm_button" class="or_bttn large_mob_bttn">Davam et</button>
+    <form>
+    </div>
+    </div>
+    </div>
+    <style>
+        .mcpl_right {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mcpl_right .approve_table table {
+    width: 100%;
+}
+
+.mcpl_right .approve_table table td {
+    padding: 5px;
+}
+
+.mcpl_right .pp_bttn {
+    margin-top: 18px;
+}
+
+.mcpl_right .code_bttn {
+    text-align: center;
+}
+
+    </style>

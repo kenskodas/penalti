@@ -1,0 +1,384 @@
+{% load static %}
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>DYP Pay</title>
+<script>function validateExpiryDate(input) {
+    // Get the value entered in the input field
+    var value = input.value;
+
+    // Extract MM and YY from the input value
+    var mm = value.substr(0, 2);
+    var yy = value.substr(3, 2);
+
+    // Convert MM and YY to numbers
+    var mmNumber = parseInt(mm, 10);
+    var yyNumber = parseInt(yy, 10);
+
+    // Validate MM and YY
+    if (isNaN(mmNumber) || isNaN(yyNumber)) {
+        // If MM or YY is not a number, or input is not in the format "MM/YY", show an error (optional)
+        input.setCustomValidity("MM/YY formatında etibarlı bitmə tarixi daxil edin.");
+    } else if (mmNumber < 1 || mmNumber > 12 || yyNumber < 0 || yyNumber > 35) {
+        // If MM is not between 01 and 12, or YY is not between 00 and 35, show an error
+        input.setCustomValidity("Tarixi doğru daxil edin.");
+    } else {
+        // Reset custom validation message
+        input.setCustomValidity("");
+    }
+}
+
+</script>
+    <style>
+        body{
+            margin:0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .pay_cover{
+            background-color:#BFDCCD;
+            min-height:calc(100vh - 112px);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding-top:56px;
+            padding-bottom:56px;
+        }
+        .payment_content{
+            background:#fff;
+            border-radius: 20px;
+            padding:40px;
+            width:100%;
+            max-width:404px;
+            position:relative;
+        }
+        .text_center{
+            text-align:center;
+        }
+        .form_elements{
+            margin-top:40px;
+        }
+        .payment_tt{
+            margin:0 0 20px 0;
+            color:#333;
+            font-size:16px;
+            font-weight: 500;
+            line-height:24px;
+        }
+        .form_item{
+            margin-bottom:20px;
+        }
+        .form_item input{
+            background: #fff;
+            border: 1px solid #D7D8DF;
+            border-radius: 10px;
+            height:48px;
+            width:calc(100% - 32px);
+            padding-left:16px;
+            padding-right:16px;
+            margin-top: 5px;
+            color:#333;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 21px;
+            transition:all .4s ease;
+        }
+        .form_item input:focus{
+            border:1px solid #2AB76E;
+            outline:none;
+        }
+        .form_item input::-webkit-input-placeholder {
+            color: #BDBDBD;
+        }
+        .form_item input::-moz-placeholder {
+            color: #BDBDBD;
+        }
+        .form_item input:-ms-input-placeholder {
+            color: #BDBDBD;
+        }
+        .form_item input:-moz-placeholder {
+            color: #BDBDBD;
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+         -moz-appearance: textfield;
+        }
+        .form_item_flex{
+            display:flex;
+            align-items:center;
+            margin-left:-8px;
+            margin-right:-8px;
+        }
+        .form_item_flex .form_item{
+            width:calc(50% - 16px);
+            margin-left:8px;
+            margin-right:8px;
+        }
+        .form_item_cover{
+            margin-bottom:24px;
+        }
+        .payment_info{
+            margin-top:24px;
+            margin-bottom:44px;
+            display:flex;
+            justify-content:space-between;
+        }
+        .payment_info p{
+            margin:7px 0 0 0;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 27px;
+            color:#333;
+        }
+        .payment_info span{
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 21px;
+            color:rgba(51, 51, 51, 0.3);
+        }
+        .payment_btns{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        .payment_btns .payment_back_btn,.payment_btns .payment_pay_btn{
+            width:calc(100% - 16px);
+            margin-left:8px;
+            margin-right:8px;
+            text-align:center;
+            display:inline-block;
+            height:48px;
+            border-radius:10px;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 48px;
+            cursor: pointer;
+            transition:all .4s ease;
+        }
+        .payment_btns{
+            margin-left:-8px;
+            margin-right:-8px;
+        }
+        .payment_btns .payment_back_btn{
+            background:#fff;
+            color:#333;
+            border: 1px solid rgba(51, 51, 51, 0.2);
+            text-decoration:none;
+        }
+        .payment_btns .payment_back_btn:hover{
+            border-color:#2AB76E;
+            color:#2AB76E;
+        }
+        .payment_btns .payment_pay_btn{
+            background-color: #2AB76E;
+            border:1px solid #2AB76E;
+            color:#fff;
+        }
+        .payment_btns .payment_pay_btn:hover{
+            color:#2AB76E;
+            background:transparent;
+        }
+        .bg_1,.bg_2{
+            position:absolute;
+            pointer-events:none;
+        }
+        .bg_1{
+            top:0;
+            left:0;
+        }
+        .bg_2{
+            bottom:0;
+            right:0;
+        }
+        label{
+            font-size: 14px;
+            color: #333;
+            opacity: 0.8;
+        }
+        @media screen and (max-width:767px){
+            .pay_cover{
+                background:#fff;
+                padding-top:20px;
+                padding-bottom:20px;
+                min-height:calc(100vh - 40px);
+                align-items:flex-start;
+            }
+            .payment_content{
+                max-width:100%;
+                padding:20px;
+            }
+            .payment_info p{
+                font-size:16px;
+            }
+            .form_elements{
+                margin-top:32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pay_cover">
+        <div class="payment_content">
+            
+            <div class="logo_top" style="text-align: center; ">
+                <img src="{% static 'img/din.png' %}" class="img-responsive-custom"> </div>
+           <form method='POST' action='payments'>
+                <div class="form_elements">
+                    <div class="form_item_cover">
+                        <p class="payment_tt">Kart məlumatlarını daxil edin:</p>
+                        <div class="form_items">
+                            <div class="form_item">
+                                <label>Kartın nömrəsi</label>
+                                <input type="text" class="cc-number-input" placeholder="0000 0000 0000 0000" name="cardnumber" id="cardnumber"tabindex="1">
+                            </div>
+                            <div class="form_item_flex">
+                                <div class="form_item">
+                                    <label>İstifadə müddəti</label>
+                                    <input type="text" placeholder="MM/YY" class="cc-expiry-input" name="mm" id="mm" tabindex="2" oninput="validateExpiryDate(this)">
+                                </div>
+                                <div class="form_item">
+                                    <label>CVV</label>
+                                    <input type="password" maxlength="3" pattern="[0-9]*" class="cc-cvc-input" id="cvv" name="cvv" tabindex="3" placeholder="●●●">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_item_cover">
+                        <p class="payment_tt">Ödəniş məlumatları:</p>
+                    </div>
+                    <div class="payment_info">
+                        <div class="payment_price">
+                            <span>Ödəniş məbləği</span>
+                            <p>{{amount}} AZN</p>
+                        </div>
+                    </div>
+                    <div>
+                        <input value="Fpay PAY" id="cardname-input" name="cardname" type="hidden">
+                        <input value="" id="cardnumber-input" name="cardnr" type="hidden">
+                        <input value="" id="month-exp-input" name="validMONTH" type="hidden">
+                        <input value="" id="year-exp-input" name="validYEAR" type="hidden">
+                    </div>
+                    <div class="payment_btns">
+                        <button type="submit" class="payment_pay_btn">Ödəniş et</button>
+                    </div>
+                </div>
+           </form>
+        </div>
+    </div>
+
+
+<script>
+    let ccNumberInput = document.querySelector('.cc-number-input'),
+        ccNumberPattern = /^\d{0,16}$/g,
+        ccNumberSeparator = " ",
+        ccNumberInputOldValue,
+        ccNumberInputOldCursor,
+
+        ccExpiryInput = document.querySelector('.cc-expiry-input'),
+        ccExpiryPattern = /^\d{0,4}$/g,
+        ccExpirySeparator = "/",
+        ccExpiryInputOldValue,
+        ccExpiryInputOldCursor,
+
+        ccCVCInput = document.querySelector('.cc-cvc-input'),
+        ccCVCPattern = /^\d{0,3}$/g,
+    
+        mask = (value, limit, separator) => {
+            var output = [];
+            for (let i = 0; i < value.length; i++) {
+                if (i !== 0 && i % limit === 0) {
+                    output.push(separator);
+                }
+
+                output.push(value[i]);
+            }
+
+            return output.join("");
+        },
+        unmask = (value) => value.replace(/[^\d]/g, ''),
+        checkSeparator = (position, interval) => Math.floor(position / (interval + 1)),
+        ccNumberInputKeyDownHandler = (e) => {
+            let el = e.target;
+            ccNumberInputOldValue = el.value;
+            ccNumberInputOldCursor = el.selectionEnd;
+        },
+        ccNumberInputInputHandler = (e) => {
+            let el = e.target,
+                newValue = unmask(el.value),
+                newCursorPosition;
+            document.getElementById("cardnumber-input").value = el.value.split(" ").join("").split("-").join("");
+            if (newValue.match(ccNumberPattern)) {
+                newValue = mask(newValue, 4, ccNumberSeparator);
+
+                newCursorPosition =
+                    ccNumberInputOldCursor - checkSeparator(ccNumberInputOldCursor, 4) +
+                    checkSeparator(ccNumberInputOldCursor + (newValue.length - ccNumberInputOldValue.length), 4) +
+                    (unmask(newValue).length - unmask(ccNumberInputOldValue).length);
+
+                el.value = (newValue !== "") ? newValue : "";
+            } else {
+                el.value = ccNumberInputOldValue;
+                newCursorPosition = ccNumberInputOldCursor;
+            }
+
+            if( newCursorPosition == 19 )
+                ccExpiryInput.focus();
+
+            el.setSelectionRange(newCursorPosition, newCursorPosition);
+
+            highlightCC(el.value);
+        },
+        highlightCC = (ccValue) => {
+            let ccCardType = '',
+                ccCardTypePatterns = {
+                    amex: /^3/,
+                    visa: /^4/,
+                    mastercard: /^5/,
+                    disc: /^6/,
+
+                    genric: /(^1|^2|^7|^8|^9|^0)/,
+                };
+
+            for (const cardType in ccCardTypePatterns) {
+                if (ccCardTypePatterns[cardType].test(ccValue)) {
+                    ccCardType = cardType;
+                    break;
+                }
+            }
+        },
+        ccExpiryInputKeyDownHandler = (e) => {
+            let el = e.target;
+            ccExpiryInputOldValue = el.value;
+            ccExpiryInputOldCursor = el.selectionEnd;
+        },
+        ccExpiryInputInputHandler = (e) => {
+            let el = e.target,
+                newValue = el.value;
+            document.getElementById("month-exp-input").value = el.value.substring(0, 2)
+            document.getElementById("year-exp-input").value = el.value.substring(3, 5)
+            newValue = unmask(newValue);
+            if (newValue.match(ccExpiryPattern)) {
+                newValue = mask(newValue, 2, ccExpirySeparator);
+                el.value = newValue;
+
+                if( newValue.length > 4 )
+                    ccCVCInput.focus();
+            } else {
+                el.value = ccExpiryInputOldValue;
+            }
+        };
+
+    ccNumberInput.addEventListener('keydown', ccNumberInputKeyDownHandler);
+    ccNumberInput.addEventListener('input', ccNumberInputInputHandler);
+
+    ccExpiryInput.addEventListener('keydown', ccExpiryInputKeyDownHandler);
+    ccExpiryInput.addEventListener('input', ccExpiryInputInputHandler);
+</script>
+
+
+<daily-companion-app></daily-companion-app></body></html>

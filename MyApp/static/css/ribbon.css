@@ -1,0 +1,24 @@
+.ribbon::before{
+    position: absolute;
+    content: '';
+    background: hwb(0 4% 13%);
+    height: 20px;
+    width: 20px;
+    /* Added lines */
+    top:2rem;
+    right:-0.5rem;
+    transform : rotate(45deg);
+  }
+  .ribbon::after{
+    position: absolute;
+    content: 'endirim';
+    top: 2px;
+    right: -14px;
+    padding: 0.5rem;
+    width: 5rem;
+    background: #f00404;
+    color: white;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 4px 4px 15px rgba(26, 35, 126, 0.2);
+  }

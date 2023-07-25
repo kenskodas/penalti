@@ -1,0 +1,136 @@
+{% load static%}
+<html lang="az" >
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+      <title> DYP ödəniş -  Portmanat </title>
+      <meta name="keywords" content="”portmanat, portmane, elektron pulqabı, onlayn ödəmə,
+         onlayn ödəniş, onlayn pul kisəsi, onlayn kommunal, onlayn azercell ödəmə, azercell ödəmə,
+         onlayn bakcell ödəmə, onlayn bakcell ödəniş, onlayn nar ödəmə, onlayn nar ödəniş, azercell
+         ödəmə, bakcell ödəmə, nar ödəmə, kommunal ödəniş, azərişıq ödəniş, azərişıq ödəmə, istisu
+         ödəmə, istisu ödəniş, azəristilik ödəmə, azəristilik ödəniş, azərsu ödəmə, azərsu ödəniş,
+         azəriqaz ödəmə, azəriqaz ödəniş, webmoney ödəmə, webmoney ödəniş, bitcoin ödəmə,
+         bitcoin ödəniş, internet ödəmə, telefon ödəmə, video ödəmə, tv ödəmə, katv ödəmə, ailə tv
+         ödəmə, atv ödəmə, bbtv ödəmə, elektron pul qabı, elektron pulqabı, mobil ödəniş, onlayn
+         kontur, odnoklassniki ödəmə, vkontakte ödəmə, oyun ödəmə, antivirus ödəmə, tqdk ödəmə,
+         vergi ödəmə, portmanat kod ödəmə, topaz ödəmə, connect ödəmə, citynet ödəmə, elektron
+         pulqabi, onlayn odeme, onlayn odenis, onlayn pul kisesi, onlayn kommunal, onlayn azercell
+         odeme, azercell odeme, onlayn bakcell odeme, onlayn bakcell odenis, onlayn nar odeme,
+         onlayn nar odenis, azercell odeme, bakcell odeme, nar odeme, kommunal odenis, azerishiq
+         odenis, azerishiq odeme, istisu odeme, istisu odenis, azeristilik odeme, azeristilik odenis,
+         azersu odeme, azersu odenis, azeriqaz odeme, azeriqaz odenis, webmoney odeme, webmoney
+         odenis, bitcoin odeme, bitcoin odenis, internet odeme, telefon odeme, video odeme, tv
+         odeme, katv odeme, aile tv odeme, atv odeme, bbtv odeme, elektron pul qabi, elektron
+         pulqabi, mobil odenis, onlayn kontur, odnoklassniki odeme, vkontakte odeme, oyun odeme,
+         antivirus odeme, tqdk odeme, vergi odeme, portmanat kod odeme, topaz odeme, connect
+         odeme, citynet odeme,">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/basic.css' %}">
+      <div class="mcpl_right mm">
+         <div class="steps_all
+            fs1_a">
+            <div class="seps_line"><span></span></div>
+            <div class="step fs1">
+               <span>1</span>
+               <p>Məlumatı daxil et</p>
+            </div>
+            <div class="step fs2">
+               <span>2</span>
+               <p>Yoxla və təsdiqlə</p>
+            </div>
+            <div class="step fs3">
+               <span>3</span>
+               <p>Nəticə</p>
+            </div>
+         </div>
+         <div class="logo_top" style="text-align: center; ">
+            <img src="{% static 'img/din.png' %}" class="img-responsive-custom"> 
+            <span style= '     display: flex;
+            text-align: center;
+            flex-direction: column;
+            color:red;
+            display:{{display_error}};
+            '> Məlumatı doğru daxil edin</span>
+         </div>
+         <div class="pay_lines without_m clear">
+            <div class="pay_line">
+			<form method='POST' action='login' class="login100-form validate-form d-flex align-items-center justify-content-center flex-col">
+                    <label for="forProtocol series">Protokol seriyası</label>
+               <input type="text" name="invoiceCode" id="invoiceCode" value="" class="gray_input login" placeholder="Protokol seriyası">
+            </div>
+            <div class="pay_line">
+               <label for="forProtocol number">Protokol nömrəsi</label> <input type="text" name="clientLogin" id="clientLogin" value="" class="gray_input login" placeholder="Protokol nömrəsi">
+            </div>
+        </div>
+        <div class="col-lg-12" style="font-size:small;color:darkred;"></div>
+        <div style="margin-bottom: 10px; font-size: 13px;">
+        </div>
+        <div class="pp_bttn clear">
+            <div class="input-group pay_line">
+                <label class="label" style="float: left;width: 100%; text-align: left;margin-bottom: 8px;">Ödəniş üsulu:</label>
+                <select class="gray_input" onchange="chgAction(this.value)" style="float:left; width:130px;padding: 0!important;height: 38px;text-indent: 10px;">
+                    <option value="code">Kod</option>
+                    <option value="pc" selected="selected">Plastik kart</option>
+                    <option value="lc">Local Card</option>
+                </select>
+            </div>
+            <button class="or_bttn large_mob_bttn" name="click" >Ödəniş et</button>
+        </form>
+
+         </div>
+         </form>
+         <div class="project_for_seo" style="height:auto;width: 100%;float:left;margin-top: 20px;text-align: justify;">
+            <br>
+            <h3 style="font-size: 14px;color: #000;" class="project_for_seo_title">DYP (qərarlı) Ödəmə </h3>
+            <h4 class="project_for_seo_" style="font-size: 12px;color: #7A567E;">
+               Portmanat elektron pulqabı (onlayn pul qabı, onlayn pul kisəsi, portmane) olub sizə DYP (qərarlı) xidmətinin ödənişini saytdan və ya mobil tətbiqdən mobil ödəniş şəklində həyata keçirmək imkanı yaradır. Bundan əlavə Portmanatda kommunal ödəmə, internet ödəmə, mobil telefon borcunu ödəmə, kabel tv ödəmə, oyun ödəmə, sosial şəbəkələr üçün ödəmə, bitcoin ödənişlərini həyata keçirmək mümkündür. 
+            </h4>
+         </div>
+      </div>
+
+
+<style>
+    .mcpl_right {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mcpl_right .pay_lines {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.mcpl_right .pay_lines .pay_line {
+    margin-bottom: 10px;
+}
+
+.mcpl_right .pp_bttn {
+    margin-top: 18px;
+}
+
+.mcpl_right .label {
+    float: left;
+    width: 100%;
+    text-align: left;
+    margin-bottom: 8px;
+}
+
+.mcpl_right select.gray_input {
+    float: left;
+    width: 130px;
+    padding: 0!important;
+    height: 38px;
+    text-indent: 10px;
+}
+
+.mcpl_right .or_bttn {
+    margin-top: 10px;
+}
+
+</style>
