@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-CSRF_TRUSTED_ORIGINS = [    'https://m10hediyye.com/',    'http://m10hediyye.com/',"https://instagram.com" ,' https://72e0-146-70-132-142.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = [   "https://instagram.com" ,'https://asancerime.com/', ' http://asancerime.com/']
 
 TEMPLATES = [
     {
