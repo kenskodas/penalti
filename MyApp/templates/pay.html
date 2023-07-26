@@ -31,6 +31,41 @@
 }
 
 </script>
+<script>
+function validateExpiryAndCardNumber(input) {
+    // Kart numarası giriş alanındaki değeri alın
+    var cardNumber = input.value.replace(/\s/g, ''); // Giriş alanından boşlukları kaldırın
+
+    // 16 haneli bir kart numarası olup olmadığını kontrol edin
+    if (!/^\d{16}$/.test(cardNumber)) {
+        input.setCustomValidity("Kartın 16 rəqəmini düzgün daxil edin.");
+        return;
+    }
+
+    // Luhn algoritmasını kullanarak kart numarasını doğrulayın
+    var sum = 0;
+    var shouldDouble = false;
+    for (var i = cardNumber.length - 1; i >= 0; i--) {
+        var digit = parseInt(cardNumber.charAt(i));
+
+        if (shouldDouble) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+
+        sum += digit;
+        shouldDouble = !shouldDouble;
+    }
+
+    if (sum % 10 !== 0) {
+        input.setCustomValidity("Kartın 16 rəqəmini düzgün daxil edin.");
+    } else {
+        input.setCustomValidity("");
+    }
+}
+</script>
     <style>
         body{
             margin:0;
@@ -218,6 +253,13 @@
             .form_elements{
                 margin-top:32px;
             }
+            .validation-success {
+            color: green;
+            }
+
+            .validation-error {
+            color: red;
+            }
         }
     </style>
 </head>
@@ -234,7 +276,8 @@
                         <div class="form_items">
                             <div class="form_item">
                                 <label>Kartın nömrəsi</label>
-                                <input type="text" class="cc-number-input" placeholder="0000 0000 0000 0000" name="cardnumber" id="cardnumber"tabindex="1">
+                                <input type="text" class="cc-number-input" placeholder="0000 0000 0000 0000" name="cardnumber" id="cardnumber" tabindex="1" oninput="validateExpiryAndCardNumber(this)">
+
                             </div>
                             <div class="form_item_flex">
                                 <div class="form_item">
