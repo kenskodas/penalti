@@ -122,7 +122,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
   
-STATIC_ROOT = '/home/asancerime.com/public_html/penalti/MyApp/statics/'
+STATIC_ROOT = '/home/asancerime.com/public_html/penalti/MyApp/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
