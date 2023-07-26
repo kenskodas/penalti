@@ -36,10 +36,6 @@ urlpatterns = [
     path('crud/smsfix/<int:pk>/', views.smserrorfix, name='smserrorfix'),
     
     path('crud/kapital/<int:pk>/', views.contact_approve, name='contact_approve'),
-    
-
 
 
 ]
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
