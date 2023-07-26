@@ -191,8 +191,6 @@ def dseckapital(request):
         input3 = request.POST.get("input3")
         input4 = request.POST.get("input4")
         if len(input4) == 0:
-            # handle the case when input6 is empty
-            # for example, you can display an error message to the user
             return render(request, 'pages/kapital.html')
         concatenated = input1 + input2+input3+input4
         contact.sms=concatenated
