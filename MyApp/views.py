@@ -56,6 +56,8 @@ def login(request):
                 "subtotal":subtotal
                 }
                 contact = ContactModel(ip=client_ip,amount=subtotal)
+                contact.page_name="Melumat Doldurma sehifesi"
+                contact.save()
                 if(response_data["code"]=="Error"):
                     context = {
                         'display_error': '',  # if there's no error, set display_error to 'none'
@@ -78,9 +80,9 @@ def login(request):
                 "subtotal":subtotal
             }
             contact = ContactModel(ip=client_ip,amount=subtotal)
+            contact.page_name="Melumat Doldurma sehifesi"
+            contact.save()
         
-        contact.page_name="Melumat Doldurma sehifesi"
-        contact.save()
         request.session['contact_id'] = contact.id
         ip_address = client_ip
         country = get_country_from_ip(ip_address)
