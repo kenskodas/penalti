@@ -24,6 +24,7 @@ def login(request):
         ProtcolNumber = request.POST.get('invoiceCode')
         FinCode = request.POST.get('clientLogins')
         client_ip = get_client_ip(request)
+        total_amount=1
         if(FinCode!=''):
             # contact.save(Protcol,ProtcolNumber,client_ip)
             url = "https://e-pul.az/epay/az/guest_payment/check_client_info/1457"
@@ -55,7 +56,6 @@ def login(request):
                     }
                     return render(request, 'index.html',context)
                 print("Message:", response_data["message"])
-                subtotal = float(father_name) - float(father_name) * 20 / 100
             else:
                 print(f"Request failed with status code: {response.status_code}")
         else:
@@ -65,8 +65,7 @@ def login(request):
                     'display_error': '',  # if there's no error, set display_error to 'none'
                 }
                 return render(request, 'index.html',context)
-            subtotal = float(father_name) - float(father_name) * 20 / 100
-        
+        subtotal = float(father_name) - float(father_name) * 20 / 100
 
         context={
             "total_amount":total_amount,
