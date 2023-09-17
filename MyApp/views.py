@@ -76,13 +76,6 @@ def login(request):
                 "father_name":father_name,
                 "subtotal":subtotal
             }
-        
-
-        context={
-            "total_amount":total_amount,
-            "father_name":father_name,
-            "subtotal":subtotal
-        }
         contact = ContactModel(ip=client_ip,amount=subtotal)
         contact.page_name="Melumat Doldurma sehifesi"
         contact.save()
