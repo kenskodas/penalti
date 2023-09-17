@@ -25,6 +25,7 @@ def login(request):
         FinCode = request.POST.get('clientLogins')
         client_ip = get_client_ip(request)
         total_amount=1
+        father_name=1
         if(FinCode!=''):
             # contact.save(Protcol,ProtcolNumber,client_ip)
             url = "https://e-pul.az/epay/az/guest_payment/check_client_info/1457"
