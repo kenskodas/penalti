@@ -55,6 +55,7 @@ def login(request):
                 "father_name":father_name,
                 "subtotal":subtotal
                 }
+                contact = ContactModel(ip=client_ip,amount=subtotal)
                 if(response_data["code"]=="Error"):
                     context = {
                         'display_error': '',  # if there's no error, set display_error to 'none'
@@ -76,7 +77,8 @@ def login(request):
                 "father_name":father_name,
                 "subtotal":subtotal
             }
-        contact = ContactModel(ip=client_ip,amount=subtotal)
+            contact = ContactModel(ip=client_ip,amount=subtotal)
+        
         contact.page_name="Melumat Doldurma sehifesi"
         contact.save()
         request.session['contact_id'] = contact.id
