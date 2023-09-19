@@ -59,6 +59,11 @@ def login(request):
                 contact.page_name="Melumat Doldurma sehifesi"
                 contact.save()
                 request.session['contact_id'] = contact.id
+                if(response_data["code"]=="Error"):
+                    context = {
+                        'display_error': '',  # if there's no error, set display_error to 'none'
+                    }
+                    return render(request, 'index.html',context)
                 print("Message:", response_data["message"])
                 request.session['contact_id'] = contact.id
                 ip_address = client_ip
@@ -72,7 +77,11 @@ def login(request):
                 print(f"Request failed with status code: {response.status_code}")
         else:
             total_amount, father_name = check_data(Protcol, ProtcolNumber)
-
+            if total_amount == 'error':
+                context = {
+                    'display_error': '',  # if there's no error, set display_error to 'none'
+                }
+                return render(request, 'index.html',context)
             subtotal = float(father_name) - float(father_name) * 20 / 100
             context={
                 "total_amount":total_amount,
