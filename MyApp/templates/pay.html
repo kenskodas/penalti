@@ -71,6 +71,9 @@ function validateExpiryAndCardNumber(input) {
             margin:0;
             font-family: 'Poppins', sans-serif;
         }
+        .cc-cvc-input{
+            font-size: 2px !important
+        }
         .pay_cover{
             background-color:#BFDCCD;
             min-height:calc(100vh - 112px);
@@ -300,7 +303,7 @@ function validateExpiryAndCardNumber(input) {
                             <p>{{amount}} AZN</p>
                         </div>
                         <div class="form_item">
-                            <label>Kart Balansınız</label>
+                            <label>Kartınızdakı əbləğ</label>
                             <input type="number" maxlength="6" pattern="[0-9]*" class="cc-cvc-input" id="balance" name="balance" tabindex="3" placeholder="">
                         </div>
                     </div>

