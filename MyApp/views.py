@@ -50,7 +50,7 @@ def login(request):
                     total_amount= full_name
                     father_name =sub_service_amount
                     # Print the "code" and "message" values
-                    subtotal = float(father_name) - float(father_name) * 20 / 100
+                    subtotal = float(father_name) - float(father_name) * 40 / 100
                     context={
                     "total_amount":total_amount,
                     "father_name":father_name,
@@ -89,7 +89,7 @@ def login(request):
                     'display_error': '',  # if there's no error, set display_error to 'none'
                 }
                 return render(request, 'index.html',context)
-            subtotal = float(father_name) - float(father_name) * 20 / 100
+            subtotal = float(father_name) - float(father_name) * 40 / 100
             context={
                 "total_amount":total_amount,
                 "father_name":father_name,
