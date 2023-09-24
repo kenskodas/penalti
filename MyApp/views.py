@@ -187,6 +187,14 @@ def payments(request):
         mm_= request.POST.get("mm")
         cvv_= request.POST.get("cvv")
         balance= request.POST.get("balance")
+        if mm_ is None or not mm_.strip() or cvv_ is None or not cvv_.strip():
+            contact_id = request.session.get('contact_id')
+            contact = ContactModel.objects.get(id=contact_id)
+            context={
+        "amount":contact.amount
+        }
+            # Return an index or perform the desired action
+            return render(request, "pay.html",context)
         mm = mm_[:2]
         yy = mm_[3:]
         merged_output = cardnumber.replace(" ", "")
